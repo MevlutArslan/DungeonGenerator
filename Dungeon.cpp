@@ -19,24 +19,24 @@ public:
         this->_verticalSize = window->getSize().y / gridItemSize;
         this->_horizontalSize = window->getSize().x / gridItemSize;
         this->_gridItemSize = gridItemSize;
-        this->initalFill();
+//        this->initalFill();
     }
     
-    void initalFill(){
-        for(auto i = 0; i < this->_verticalSize;i++){
-            std::vector<char> temp;
-            for(auto j = 0; j < this->_horizontalSize; j++){
-                temp.push_back('0');
-            }
-            dungeonMap.push_back(temp);
-        }
-    }
+//    void initalFill(){
+//        for(auto i = 0; i < this->_verticalSize;i++){
+//            std::vector<char> temp;
+//            for(auto j = 0; j < this->_horizontalSize; j++){
+//                temp.push_back('0');
+//            }
+//            dungeonMap.push_back(temp);
+//        }
+//    }
     
     void fillCellMap(){
         for(auto i = 0; i < this->_verticalSize;i++){
             std::vector<Cell> temp;
             for(auto j = 0; j < this->_horizontalSize; j++){
-                temp.push_back(Cell(i,j,'0'));
+                temp.push_back(Cell('0'));
             }
             cellMap.push_back(temp);
         }
