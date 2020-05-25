@@ -19,7 +19,8 @@ public:
         this->_verticalSize = window->getSize().y / gridItemSize;
         this->_horizontalSize = window->getSize().x / gridItemSize;
         this->_gridItemSize = gridItemSize;
-//        this->initalFill();
+        this->fillCellMap();
+        this->generate();
     }
     
 //    void initalFill(){
@@ -52,6 +53,53 @@ public:
                 }
                 else{
                     this->cellMap[i][j].indicator = '2';
+                }
+            }
+        }
+    }
+    
+    std::vector<std::vector<Cell>> simulateStep(std::vector<std::vector<Cell>> map){
+        
+        std::vector<std::vector<Cell>> newMap;
+        
+        for(auto x = 0; x <map.size();x++){
+            for(auto y = 0; y < map[0].size(); y++){
+                int aliveNeighbours = countAliveNeighbours(map, x, y);
+                
+                if(map[x][y].living){
+                    if(aliveNeighbours < 2 || aliveNeighbours > 3){
+                        map[x][y].living = false;
+                    }
+                }
+                if(!map[x][y].living){
+                    if(aliveNeighbours == 4){
+                        map[x][y].living = true;
+                    }
+                }
+            }
+        }
+        return newMap;
+    }
+    
+    int countAliveNeighbours(std::vector<std::vector<Cell>> cellMap, int x, int y){
+        int count = 0;
+        
+        for(int i=-1; i<2; i++){
+            for(int j=-1; j<2; j++){
+                int neighbour_x = x+i;
+                int neighbour_y = y+j;
+                
+                if(i == 0 && j == 0){
+                    //do nothing
+                }
+                //if edge of the map
+                else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= cellMap.size() || neighbour_y >= cellMap[0].size()){
+                    count = count + 1;
+                }
+                
+                //normal check
+                else if(cellMap[neighbour_x][neighbour_y].living){
+                    count = count + 1;
                 }
             }
         }
