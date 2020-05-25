@@ -3,14 +3,10 @@
 
 int main(int, char const**)
 {
-    // Create the main window
     sf::RenderWindow window(sf::VideoMode(900,900), "SFML window");
     window.setFramerateLimit(60);
     
     Dungeon dungeon = Dungeon(900,900,30,&window);
-    dungeon.fillCellMap();
-    dungeon.generate();
-    
     
     for(auto i = 0; i < dungeon.cellMap.size();i++){
         for(auto j = 0; j < dungeon.cellMap[i].size(); j++){
@@ -20,7 +16,6 @@ int main(int, char const**)
     }
     
 
-    // Start the game loop
     while (window.isOpen())
     {
         // Process events
@@ -39,7 +34,6 @@ int main(int, char const**)
         }
 
         window.clear();
-
         
         dungeon.drawTextureForm(&window);
         window.display();
